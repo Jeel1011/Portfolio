@@ -339,6 +339,10 @@ ul .coding{
     text-align: center;
     margin-bottom: 3rem;
 }
+.contact form .mainInputBox{
+    display: grid;
+    grid-template-rows: repeat(50%,2);
+}
 .contact form .input-box{
     display: flex;
     justify-content: space-between;
@@ -354,9 +358,9 @@ ul .coding{
     border-radius: .8rem;
     margin: .7rem 0;
 }
-.contact form .input-box input{
+/* .contact form .input-box input{
     width: 49%;
-}
+} */
 .contact form textarea{
      resize: none;
 }

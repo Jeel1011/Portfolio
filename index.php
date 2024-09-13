@@ -53,7 +53,8 @@
 	<div class="about-content">
 		<h2 class="heading">About <span>ME</span></h2>
 		<h3>FullStack Developer!</h3>
-		<p >I am Jeel Patel, currently final-year student pursuing a degree in Information Technology Engineering at Saffrony Institute of Technology, located in Mehsana. I am currently residing in Ahmedabad, Gujarat. I believe that my curiosity to learn and quick learning capacity is my best strength and motivation to keep going forward. My weekness is I always want to improve myself. I like travelling and drawing sketches, apart from that in my free time i like to listening to musics and reading books.  </p>
+		<p >I am Jeel Patel, a dedicated Full Stack Web Developer with a BE in Information Technology from Saffrony Institute of Technology, and extensive hands-on experience in HTML, CSS, JavaScript, PHP, and Laravel. I have honed my skills through internships at ONGC and Multidots Solutions Pvt. Ltd., where I worked on various web development projects, enhancing both my technical and soft skills. Proficient in multiple programming languages and tools, I am passionate about continuous learning and applying my knowledge to create efficient, user-friendly web applications.
+		</p>
 		<!-- <a href="" class="btn">Read More</a> -->
 	</div>
 </section>
@@ -66,11 +67,10 @@
 		<div class="services-box">
 			<i class='bx bx-code-alt' ></i>
 			<h3>Tchnical Skills </h3>
-		  <p>HTML, CSS, JavaScript, react.js, mongodb, SQL, PHP, Laravel(php framework), C, basics of JAVA, WordPress. </p>
+		  	<p>HTML, CSS, SASS, LESS, JavaScript, jQuery, AJAX, reactJS, MongoDB, SQL, PHP, Laravel, C, basics of JAVA, WordPress. </p>
 			<a href="https://drive.google.com/drive/folders/1ch8p6DuIrxbF0PphAwpQD_KxVDRnF3NC" target="_blank" class="btn">Course Certification</a>
 		</div>
 
-		
 
 		<div class="services-box">
 			<i class='bx bxs-paint' ></i>
@@ -78,7 +78,6 @@
 			<p>Stress Management, Time Management, Team Work, Adaptability, Positivity</p>
 			<a href="https://drive.google.com/drive/folders/1gUO5KQD_HE-4MYFZPCjPikdADZNov0R8" target="_blank" class="btn">ExtraActivity Certificates</a>
 		</div>
-
 		
 	</div>
 </section>
@@ -108,7 +107,6 @@
 			<p>Multidots Solution pvt. Ltd. Internship<br>I worked as a WordPress Full Stack Developer intern. I gained hands-on experience with front-end and back-end technologies including HTML, CSS, JavaScript, React.js, PHP, jQuery, and MySQL. I also worked with tools like Photoshop, Figma, Gulp, and Grunt. </p>
 			<a href="./images/[completed] Jeel Patel - Internship Letter.pdf" class="btn" download>Internship Certificate</a>
 		</div>
-
 		
 	</div>
 </section>
@@ -234,17 +232,30 @@
 <section class="contact" id="contact">
 	<h2 class="heading">Contact <span>Me!</span></h2>
 
-	<form  onsubmit="sendemail() ; reset(); return false;">
-		<div class="input-box">
-			<input type="text" placeholder="Full Name" id="name" name="name" >
-			<input type="email" placeholder="Email" id="email" name="email">
+	<form  action="" method="POST" >
+		<div class="mainInputBox">
+			<!-- Replace with your Access Key -->
+			<!-- <input type="hidden" name="access_key" value="a5426a45-4fe7-417d-9424-c128475f2282"> -->
+
+			<div class="input-box">
+				<input type="text" placeholder="Full Name" id="name" name="name" required>
+
+				<input type="email" placeholder="Email" id="email" name="email" required>
+			</div>
+			<div class="input-box">
+				<input type="number" placeholder="Mobile number" id="phone" name="phone" required>
+
+				<input type="text" placeholder="Email Subject" id="emailsub" name="emailsub" required>
+			</div>
+			
+			<div class="input-box">
+				<input type="text" name="message" id="message" placeholder="Your Message" required>
+			</div>
+			<!-- <textarea name="" id="message" cols="30" rows="10" placeholder="Your Message" name="yourmessage"></textarea> -->
+
+			<button type="submit" value="Send Message" class="btn" name="submit">Send Message</button>
 		</div>
-		<div class="input-box">
-			<input type="number" placeholder="Mobile number" id="phone" name="phone">
-			<input type="text" placeholder="Email Subject" id="emailsub" name="emailsub">
-		</div>
-		<textarea name="" id="message" cols="30" rows="10" placeholder="Your Message" name="yourmessage"></textarea>
-		<input type="submit" value="Send Message" class="btn">
+		
 	</form>
 </section>
 
@@ -271,35 +282,8 @@
 
 <!-- custom js -->
 <script src="./NewPortfolio.js"></script>
-<script src="https://smtpjs.com/v3/smtp.js">
-</script>
-<script>
-	function sendemail(){
-		Email.send({
-			Host : "smtp.elasticemail.com",
-			Username : "200390116048@saffrony.ac.in",
-			Password : "9E5A710FF1B1CFAE853AF5E371E8D90A10525 ",
-			To : "jeel102003@gmail.com",
-			From : document.getElementById('email').value,
-			Subject : "This is the subject",
-			Body : "Name:"+ document.getElementById('name').value+
-			"<br> Email:"+ document.getElementById('email').value+
-			"<br>Phone no:"+ document.getElementById('phone').value+
-			"<br>Email Subject:"+ document.getElementById('emailsub').value+
-			"<br> Message:"+ document.getElementById('message').value
-		}).then(
-			message => {
-				alert("message sent successfully");
-			}
-		).catch(
-			error => {
-				console.error("Error sending email:", error);
-				alert("Failed to send message. Please try again later.");
-			}
-		);
-		   
-	}
-</script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
 <script>
 	function submition(){
 		message => alert('message sent succesfully')
@@ -309,7 +293,77 @@
 </html>
 
 
+
+
+<?php
+
+//Import PHPMailer classes into the global namespace.
+//These must be at the top of your script, not inside a function.
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+if(isset($_POST['submit']))
+
+{
+    $name       = $_POST['name'];
+    $email      = $_POST['email'];
+    $phone      = $_POST['phone'];
+	$emailsub   = $_POST['emailsub'];
+    $message    = $_POST['message'];
+
+
+
+//Load Composer's autoloader
+require 'PHPMailer/PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer/PHPMailer.php';
+require 'PHPMailer/PHPMailer/SMTP.php';
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'jeel102003@gmail.com';                     //SMTP username
+    $mail->Password   = 'ocqwhyitslgfccrs';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('jeel102003@gmail.com', 'Mailer');
+    $mail->addAddress('jeel102003@gmail.com', 'Portfolio Contact Form Details');     //Add a recipient
+
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Portfolio Contact Form Details';
+    $mail->Body    = "Sender Name - $name <br> 
+					Sender email - $email <br> 
+					Sender phone no. - $phone <br> 
+					Sender email Subject - $emailsub <br> 
+					Sender message - $message";
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+}
+
+
+?>
+
+
+
+
 <!--API KEY: B8B6D2149DAC768B10D6B8753926E7299320F1C126181CFA7FF9E0E89756F622845D6098030288E266E224E5341625AB -->
 
 
 <!-- action="https://formspree.io/f/mgejyaja" method="POST" -->
+
+
+<!-- onsubmit="sendemail() ; reset(); return false;" -->
